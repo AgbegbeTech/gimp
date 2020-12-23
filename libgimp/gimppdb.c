@@ -421,7 +421,6 @@ gimp_pdb_dump_to_file (GimpPDB *pdb,
  * @copyright:   The regex for procedure copyright.
  * @date:        The regex for procedure date.
  * @proc_type:   The regex for procedure type: { 'Internal GIMP procedure', 'GIMP Plug-in', 'GIMP Extension', 'Temporary Procedure' }.
- * @num_matches: (out): The number of matching procedures.
  *
  * Queries the procedural database for its contents using regular
  * expression matching.
@@ -441,7 +440,7 @@ gimp_pdb_dump_to_file (GimpPDB *pdb,
  * are found, then the returned string is NULL and the number of
  * entries is 0.
  *
- * Returns: (array length=num_matches) (transfer full): The list
+ * Returns: (array zero-terminated=1) (transfer full): The list
  *          of procedure names. Free with g_strfreev().
  *
  * Since: 3.0
@@ -455,8 +454,7 @@ gimp_pdb_query_procedures (GimpPDB     *pdb,
                            const gchar *authors,
                            const gchar *copyright,
                            const gchar *date,
-                           const gchar *proc_type,
-                           gint        *num_matches)
+                           const gchar *proc_type)
 {
   gchar **matches;
 
@@ -466,7 +464,6 @@ gimp_pdb_query_procedures (GimpPDB     *pdb,
                    blurb, help, /* FIXME help_id */
                    authors, copyright, date,
                    proc_type,
-                   num_matches,
                    &matches);
 
   return matches;
